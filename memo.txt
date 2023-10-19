@@ -1,0 +1,21 @@
+# Lancement server FastAPI :
+- Activer l'environement virtuel en exécutant le script './backend/venv/Script/Activate.ps1' ;
+- Depuis le dossier backend, exécuter la commande 'uvicorn app.main:app --host 0.0.0.0 --port 80'. Ajouter l'option '--reload' pour le refresh on change ;
+
+# Lancement frontend NextJS :
+- Depuis le dossier frontend, exécuter la commande 'npm run dev' ;
+
+# Lancer Docker Compose :
+- Depuis la racine du projet, exécuter 'docker compose up -d' ;
+
+# Accéder à la base de données :
+-   docker exec -it horizon_website-database-1 sh ;
+-   psql -h database -p 5432 -U horizon -W -d horizon ;
+
+# Hasher un mot de passe :
+    -   from passlib.context import CryptContext
+    -   CryptContext(schemes=["bcrypt"], deprecated="auto").hash("superuser*1")
+
+# Générer une clé secrète JWT hexadécimale 32 bits :
+    -   import secrets ;
+    -   secrets.token_hex(32) ;
