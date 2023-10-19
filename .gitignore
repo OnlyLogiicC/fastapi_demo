@@ -22,7 +22,6 @@
 
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode
 
-database/data
-database/backups
+database/
 
 .env
