@@ -1,13 +1,3 @@
-# Lancement server FastAPI :
-- Activer l'environement virtuel en exécutant le script './backend/venv/Script/Activate.ps1' ;
-- Depuis le dossier backend, exécuter la commande 'uvicorn app.main:app --host 0.0.0.0 --port 80'. Ajouter l'option '--reload' pour le refresh on change ;
-
-# Lancement frontend NextJS :
-- Depuis le dossier frontend, exécuter la commande 'npm run dev' ;
-
-# Lancer Docker Compose :
-- Depuis la racine du projet, exécuter 'docker compose up -d' ;
-
 # Accéder à la base de données :
 -   docker exec -it horizon_website-database-1 sh ;
 -   psql -h database -p 5432 -U horizon -W -d horizon ;
