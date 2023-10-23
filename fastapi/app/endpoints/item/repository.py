@@ -2,7 +2,7 @@ from typing import Sequence
 from uuid import UUID
 
 from sqlalchemy import func
-from sqlalchemy.future import select
+from sqlalchemy import select
 
 from app.core.database import AsyncSession
 from app.core.logger import logger_factory
@@ -11,18 +11,21 @@ from app.endpoints.item.util import ItemSchema, CreateItemModel, UpdateItemModel
 logger = logger_factory(__name__)
 
 
-async def get_items(db: AsyncSession) -> Sequence[ItemSchema]:
+async def get_items(db: AsyncSession, filter: str, offset: int, limit: int) -> Sequence[ItemSchema]:
     """
     Repository layer function to retreive items stored in the database.
 
     Args:
         db: The :class:`AsyncSession` to connect to the database.
+        filter: a string to emit a filter on the database query.
+        offset: an int to emit an offset on the database query.
+        limit: an int to emit a limit on the database query.
 
     Returns:
         A sequence of :class:`ItemSchema`.
     """
-    statement = select(ItemSchema)
-    result = (await db.scalars(statement)).unique().all()
+    statement = select(ItemSchema).where(ItemSchema.name.contains(filter)).offset(offset).limit(limit)
+    result = (await db.scalars(statement)).all()
     logger.debug(f"get_items() -> {result}")
     return result
 

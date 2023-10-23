@@ -5,17 +5,20 @@ from app.endpoints.item.util import ResponseItemModel, ItemSchema, CreateItemMod
 import app.endpoints.item.repository as repository
 
 
-async def get_items(db: AsyncSession) -> list[ResponseItemModel]:
+async def get_items(db: AsyncSession, filter: str, offset: int, limit: int) -> list[ResponseItemModel]:
     """
     Service layer function to get the items stored in the database.
 
     Args:
         db: The :class:`AsyncSession` to connect to the database.
+        filter: a string to emit a filter on the database query.
+        offset: an int to emit an offset on the database query.
+        limit: an int to emit a limit on the database query.
 
     Returns:
         A list of :class:`ResponseItemModel`.
     """
-    result = await repository.get_items(db)
+    result = await repository.get_items(db, filter=filter, offset=offset, limit=limit)
     return [ResponseItemModel.model_validate(s) for s in result]
 
 

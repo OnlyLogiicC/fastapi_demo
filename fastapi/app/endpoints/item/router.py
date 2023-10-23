@@ -1,7 +1,7 @@
 from typing import Annotated
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, Security, HTTPException, Path
+from fastapi import APIRouter, Depends, Query, Security, HTTPException, Path
 
 from app.core.database import AsyncSession, get_db
 import app.endpoints.user.security as security
@@ -14,17 +14,22 @@ router = APIRouter(prefix="/item", tags=["Items"])
 @router.get(
     "",
     response_model=list[ResponseItemModel],
-    dependencies=[Security(security.verify_jwt)],
+    dependencies=[Security(security.verify_jwt, scopes=["items:view"])],
     description="Get the items stored in the database",
 )
-async def get_items(db: Annotated[AsyncSession, Depends(get_db)]) -> list[ResponseItemModel]:
-    return await service.get_items(db=db)
+async def get_items(
+    db: Annotated[AsyncSession, Depends(get_db)],
+    filter: Annotated[str, Query(title="Champ de recherche")] = "",
+    offset: Annotated[int, Query(title="Offset pour la pagination")] = 0,
+    limit: Annotated[int, Query(title="Taille de la page : 100 par défaut")] = 100,
+) -> list[ResponseItemModel]:
+    return await service.get_items(db=db, filter=filter, offset=offset, limit=limit)
 
 
 @router.get(
     "/count",
     response_model=int,
-    dependencies=[Security(security.verify_jwt)],
+    dependencies=[Security(security.verify_jwt, scopes=["items:view"])],
     description="Get the number of items stored in the database",
 )
 async def get_items_count(db: Annotated[AsyncSession, Depends(get_db)]) -> int:
@@ -34,7 +39,7 @@ async def get_items_count(db: Annotated[AsyncSession, Depends(get_db)]) -> int:
 @router.get(
     "/{uuid}",
     response_model=ResponseItemModel,
-    dependencies=[Security(security.verify_jwt)],
+    dependencies=[Security(security.verify_jwt, scopes=["items:view"])],
     description="Get an item by uuid (primary key) stored in the database",
 )
 async def get_item_by_uuid(
@@ -49,7 +54,7 @@ async def get_item_by_uuid(
 @router.post(
     "",
     response_model=ResponseItemModel,
-    dependencies=[Security(security.verify_jwt)],
+    dependencies=[Security(security.verify_jwt, scopes=["items:edit"])],
     status_code=201,
     description="Create a new item",
 )
@@ -60,7 +65,7 @@ async def add_item(item: CreateItemModel, db: Annotated[AsyncSession, Depends(ge
 @router.put(
     "",
     response_model=ResponseItemModel,
-    dependencies=[Security(security.verify_jwt)],
+    dependencies=[Security(security.verify_jwt, scopes=["items:edit"])],
     status_code=201,
     description="Modify an item",
 )
@@ -74,7 +79,7 @@ async def update_item(item: UpdateItemModel, db: Annotated[AsyncSession, Depends
 @router.delete(
     "/{uuid}",
     status_code=204,
-    dependencies=[Security(security.verify_jwt)],
+    dependencies=[Security(security.verify_jwt, scopes=["items:edit"])],
     description="Delete an item by his uuid primary key",
 )
 async def delete_item_by_uuid(

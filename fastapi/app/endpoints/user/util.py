@@ -19,13 +19,13 @@ class UserRole(str, Enum):
 
 
 scopes_dict: dict[UserRole, list[scopes]] = {
-    UserRole.member: ["users:view", "address:view"],
-    UserRole.admin: ["users:view", "users:edit", "address:view", "address:edit"],
+    UserRole.member: ["users:view", "items:view"],
+    UserRole.admin: ["users:view", "users:edit", "items:view", "items:edit"],
     UserRole.super_admin: [
         "users:view",
         "users:edit",
-        "address:view",
-        "address:edit",
+        "items:view",
+        "items:edit",
         "system_config",
     ],
 }
