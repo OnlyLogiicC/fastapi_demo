@@ -87,7 +87,7 @@ async def create_user(user: CreateUserModel, db: AsyncSession) -> UserSchema:
     Return:
         a :class:`UserSchema` instance corresponding to the user added to the database.
     """
-    schema: UserSchema = UserSchema(**user.model_dump())
+    schema: UserSchema = UserSchema(**user.model_dump(exclude={"password2"}))
     db.add(schema)
     await db.flush()
     await schema.awaitable_attrs.items

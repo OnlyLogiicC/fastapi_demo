@@ -9,3 +9,39 @@
 # Générer une clé secrète JWT hexadécimale 32 bits :
     -   import secrets ;
     -   secrets.token_hex(32) ;
+
+# Déroulement Présentation :
+-   Diaporama :
+    -   Introduction :
+        -   Cohérence de langage : IA, Traitement d'image ;
+
+-   Live Coding Hello World :
+    -   python -m venv venv ;
+    -   pip install fastapi uvicorn ;
+    -   créer un fichier main.py ;
+    -   Importer FastAPI ;
+    -   Créer un objet FastAPI ;
+    -   Créer l'endpoint "/" root ;
+    -   Lancer le serveur et montrer la réponse de la requête et la doc ;
+    -   Créer un modèle pydantic Item ;
+    -   Créer un dict pour mocker une base de données ;
+    -   Créer l'endpoint get_items() ;
+    -   Créer l'endpoint get_item_by_id() ;
+    -   Créer l'endpoint update_item() ;
+    -   Créer l'endpoint create_item() ;
+    -   Créer l'endpoint delete_item() ;
+
+-   Présentation application plus aboutie :
+    -   Activer venv ;
+    -   Présenter le fichier d'environement .venv ;
+    -   Présenter le Docker Compose ;
+    -   Présenter le fichier requirements ;
+    -   Présenter le fichier Dockerfile ;
+    -   Présenter la base de données ;
+    -   Présenter main.py ;
+    -   Présenter le dossier core ;
+    -   Présenter l'endpoint item ;
+    -   Présenter l'endpoint user et l'authentification ;
+    -   Présenter les tests ;
+    -   Présenter Alembic ;
+    -   Build le docker compose et présenter ;

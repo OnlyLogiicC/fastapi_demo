@@ -2,7 +2,7 @@ from datetime import datetime
 from uuid import UUID
 from enum import Enum
 
-from pydantic import BaseModel, ConfigDict, PastDatetime, EmailStr, Field
+from pydantic import BaseModel, ConfigDict, PastDatetime, EmailStr, Field, ValidationError, model_validator
 from sqlalchemy import func
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -43,6 +43,15 @@ class CreateUserModel(UserModel):
     email: EmailStr
     name: str
     password: str
+    password2: str
+
+    @model_validator(mode="after")
+    def check_passwords_match(self) -> "CreateUserModel":
+        pw1 = self.password
+        pw2 = self.password2
+        if pw1 is not None and pw2 is not None and pw1 != pw2:
+            raise ValueError("passwords do not match")
+        return self
 
 
 class UpdateUserModel(UserModel):
