@@ -2,7 +2,7 @@ from datetime import datetime
 from uuid import UUID
 from enum import Enum
 
-from pydantic import BaseModel, ConfigDict, PastDatetime, EmailStr, Field, ValidationError, model_validator
+from pydantic import BaseModel, ConfigDict, PastDatetime, EmailStr, Field, model_validator
 from sqlalchemy import func
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 

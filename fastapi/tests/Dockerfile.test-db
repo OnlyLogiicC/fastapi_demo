@@ -1,0 +1,16 @@
+# Use the official PostgreSQL image as the base image
+FROM postgres:latest
+
+# Set environment variables (these are passed to the init scripts)
+ENV POSTGRES_DB=test_db
+ENV POSTGRES_USER=test_user
+ENV POSTGRES_PASSWORD=test_password
+
+# Copy SQL files to be run upon initialization (optional)
+COPY ./init.sql /docker-entrypoint-initdb.d/
+
+# Expose the PostgreSQL port
+EXPOSE 5432
+
+# Run the PostgreSQL server
+CMD ["postgres"]

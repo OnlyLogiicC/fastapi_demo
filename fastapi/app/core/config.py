@@ -1,3 +1,4 @@
+from functools import lru_cache
 from pathlib import Path
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from pydantic import SecretStr
@@ -27,22 +28,17 @@ class EnvSettings(BaseSettings):
     DB_PORT: str = "5432"
 
     # JWT
-    JWT_SECRET: SecretStr = SecretStr("709d25e094faa6ca2556c818166b7a9563b93f7099f6f0f4caa6cf63b88e8d3e7")
+    JWT_SECRET: SecretStr = SecretStr("secretdemo")
     JWT_ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60
 
 
-_settings_instance = None
-
-
+@lru_cache()
 def get_settings() -> EnvSettings:
     """
     Returns the environment variables in an instance of :class:`EnvSettings`
     """
-    global _settings_instance
-    if _settings_instance is None:
-        _settings_instance = EnvSettings()
-    return _settings_instance
+    return EnvSettings()
 
 
 set_log_level(LogLevel[get_settings().LOG_LEVEL])
@@ -50,7 +46,7 @@ logger = logger_factory(__name__)
 
 
 def initialize_app() -> None:
-    """Initialize function on start up"""
+    """Init function executed on start up"""
     logger.debug("Initializing...")
     logger.debug(repr(get_settings()))
     return

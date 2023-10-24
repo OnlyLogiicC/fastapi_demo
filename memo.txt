@@ -10,10 +10,12 @@
     -   import secrets ;
     -   secrets.token_hex(32) ;
 
+# Build Test DB container :
+    -   docker build -t test-postgres -f Dockerfile.test-db . ;
+    -   docker run --name test-postgres-instance -p 5431:5432 -d test-postgres ;
+
 # Déroulement Présentation :
 -   Diaporama :
-    -   Introduction :
-        -   Cohérence de langage : IA, Traitement d'image ;
 
 -   Live Coding Hello World :
     -   python -m venv venv ;
@@ -42,6 +44,6 @@
     -   Présenter le dossier core ;
     -   Présenter l'endpoint item ;
     -   Présenter l'endpoint user et l'authentification ;
-    -   Présenter les tests ;
     -   Présenter Alembic ;
+    -   Présenter les tests ;
     -   Build le docker compose et présenter ;

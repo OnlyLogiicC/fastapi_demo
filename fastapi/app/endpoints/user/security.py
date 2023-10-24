@@ -4,7 +4,7 @@ from uuid import UUID
 
 from passlib.context import CryptContext
 from jose import jwt, JWTError
-from pydantic import BaseModel, ValidationError, EmailStr
+from pydantic import BaseModel, ValidationError
 from fastapi import Depends, HTTPException, status
 from fastapi.security import SecurityScopes, OAuth2PasswordBearer
 
