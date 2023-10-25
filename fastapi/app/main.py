@@ -11,8 +11,8 @@ from app.core.exception_handlers import register_exception_handlers
 from app.endpoints.user.router import user_router, auth_router
 from app.endpoints.item.router import router as item_router
 
-# ROOT_PATH = "/api/v1"  dans le conteneur docker
-ROOT_PATH = ""  # pour le developpement en local
+ROOT_PATH = "/api/v1"  # dans le conteneur docker
+# ROOT_PATH = ""  # pour le developpement en local
 
 
 @asynccontextmanager
@@ -57,7 +57,7 @@ async def root():
         </head>
         <body>
             <h1>Welcome to FastAPI</h1>
-            <p>Go to <a href="/docs">/docs</a> for Swagger documentation.</p>
+            <p>Go to <a href="https://localhost/api/v1/docs">/docs</a> for Swagger documentation.</p>
         </body>
     </html>
     """
